@@ -36,19 +36,46 @@
 #include <string>
 
 
+class Shape
+{
+public:
+	Shape()
+	{
+		a = b = 0;
+		A = B = 0;
+		name = "Shape:";
+	}
+	virtual void get_name()
+	{
+		std::cout << name << "\n";
+	}
+	virtual void get_sides() 
+	{
+		std::cout << "sides:" << "a = " << a << ", " << "b = " << b << "\n";
+	}
+	virtual void get_angle() 
+	{
+		std::cout << "angle:" << "A =" << A << ", " << "B = " << B << "\n";
+	}
+protected:
+	int a, b;
+	int A, B;
+	std::string name;
+};
+
 /*
 ***************************************************************
 ***************************************************************
 */
 // базовый класс треугольника
-class Triangle
+class Triangle : public Shape
 {
 public:
 	Triangle(int a, int b, int c, int A, int B, int C);
 	Triangle();
-	void get_name();
-	void get_sides();
-	void get_angle();
+	void get_name() override;
+	void get_sides() override;
+	void get_angle() override;
 protected:
 	int a;
 	int b;
@@ -140,14 +167,14 @@ EQtriangle::EQtriangle(int a)
 ***************************************************************
 */
 // базовый класс четырехугольника
-class Quadrilateral
+class Quadrilateral : public Shape
 {
 public:
 	Quadrilateral();
 	Quadrilateral(int a, int b, int c, int d, int A, int B, int C, int D);
-	void get_name();
-	void get_sides();
-	void get_angle();
+	void get_name() override;
+	void get_sides() override;
+	void get_angle() override;
 protected:
 	int a;
 	int b;
@@ -236,6 +263,14 @@ public:
 };
 
 
+void print_info(Shape* shape)
+{
+	shape->get_name();
+	shape->get_sides();
+	shape->get_angle();
+}
+
+
 Triangle triangle(10, 20, 30, 50, 60, 70);
 RTriagnle Rtriangle(10, 20, 30, 50, 60);
 IStriangle Istriangle(10, 20, 50, 60);
@@ -249,49 +284,32 @@ Square square(20);
 
 int main()
 {
-	triangle.get_name();
-	triangle.get_sides();
-	triangle.get_angle();
+	print_info(&triangle);
+	std::cout << "\n";
+	
+	print_info(&Rtriangle);
 	std::cout << "\n";
 
-	Rtriangle.get_name();
-	Rtriangle.get_sides();
-	Rtriangle.get_angle();
+	print_info(&Istriangle);
 	std::cout << "\n";
 
-	Istriangle.get_name();
-	Istriangle.get_sides();
-	Istriangle.get_angle();
+	print_info(&Eqtriangle);
 	std::cout << "\n";
 
-	Eqtriangle.get_name();
-	Eqtriangle.get_sides();
-	Eqtriangle.get_angle();
+	print_info(&quadrilateral);
 	std::cout << "\n";
 
-	quadrilateral.get_name();
-	quadrilateral.get_sides();
-	quadrilateral.get_angle();
+	print_info(&parallelogram);
 	std::cout << "\n";
 
-	parallelogram.get_name();
-	parallelogram.get_sides();
-	parallelogram.get_angle();
+	print_info(&rectangle);
 	std::cout << "\n";
 
-	rectangle.get_name();
-	rectangle.get_sides();
-	rectangle.get_angle();
+	print_info(&rhomb);
 	std::cout << "\n";
 
-	rhomb.get_name();
-	rhomb.get_sides();
-	rhomb.get_angle();
+	print_info(&square);
 	std::cout << "\n";
-
-	square.get_name();
-	square.get_sides();
-	square.get_angle();
 
 	return 0;
 }
